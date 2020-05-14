@@ -52,7 +52,7 @@ router.get("/", function (req, res, next) {
 
 /* GET single movie page */
 router.get("/movie/:id", (req, res, next) => {
-  const movieURL = `${BASEURL}/movie/${req.params.id}?api_key=${API_KEY}&language=en-US`;
+  const movieURL = `${BASEURL}/movie/${req.params.id}?api_key=${API_KEY}`;
   axios
     .get(movieURL)
     .then((response) => {
@@ -79,7 +79,7 @@ router.post("/search", (req, res, next) => {
     .then((response) => {
       if (cat === "person") {
         const data = response.data.results[0].known_for;
-        const actorURL = `${BASEURL}/person/${response.data.results[0].id}?api_key=${API_KEY}&language=en-US`;
+        const actorURL = `${BASEURL}/person/${response.data.results[0].id}?api_key=${API_KEY}`;
         axios
           .get(actorURL)
           .then((actorRes) => {
