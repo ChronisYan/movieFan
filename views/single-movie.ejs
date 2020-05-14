@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <title>Movie Fan - <%= data.title %></title>
+    <%- include('partials/head.ejs') %>
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
+
+    <!-- Nav -->
+    <%- include('partials/navbar.ejs') %>
+
+    <!--main -->
+
+    <h1 class="movie-title"><%= data.title %></h1>
+    <h4><%= data.tagline %></h4>
+    <a href="<%= imdb_url %>" target="_blank">
+      <img
+        class="movie-poster"
+        src="<%= posterURL + data.poster_path %> "
+        alt="Poster"
+      />
+    </a>
+    <p class="movie-synopsis"><%= data.overview %></p>
+
+    <button class="modal-button">More info</button>
+    <div class="modal-wrapper">
+      <div class="movie-modal">
+        <div class="modal-close">X</div>
+        <p>
+          genres:<% data.genres.forEach(genre =>{ %> <%= genre.name + " " %> <%
+          })%>
+        </p>
+        <p>Release Date: <%= data.release_date %></p>
+        <p>Runtime:<%= data.runtime %></p>
+        <p>Rating:<%= data.vote_average %></p>
+        <p>Budget:<%= data.budget %></p>
+        <p>Revenue:<%= data.revenue %></p>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <%- include('partials/footer.ejs') %>
+
+    <script src="/javascripts/model.js" defer></script>
+  </body>
+</html>

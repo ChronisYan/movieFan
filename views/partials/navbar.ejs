@@ -1,0 +1,24 @@
+<nav>
+  <div class="Logo">
+    <a href="/"><img src="/images/icon.png" alt="logo" /></a>
+  </div>
+  <a href="/">Home</a>
+  <form action="/search?source=hp" method="POST">
+    <label for="category"></label>
+    <select name="category" id="category">
+      <option value="movie">Movie</option>
+      <option value="person">Actor</option>
+    </select>
+    <label for="searchTerm"></label>
+    <input
+      type="search"
+      name="searchTerm"
+      id="searchTerm"
+      placeholder="Star Wars..."
+      required
+    />
+    <input type="submit" value="Search!" />
+  </form>
+
+  <hr />
+</nav>
