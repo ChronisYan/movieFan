@@ -15,14 +15,15 @@ router.use((req, res, next) => {
   res.locals.posterURL = IMAGEURL;
   next();
 });
+
 //LOADING MOVIE ERROR CHECKER
 router.use((req, res, next) => {
+  res.locals.actor = null;
   if (req.query.loadingError === "true") {
     res.locals.movieError =
       "Sorry, we were unable to load the movie. Please try again later";
   } else {
     res.locals.movieError = null;
-    res.locals.actor = null;
   }
   next();
 });
