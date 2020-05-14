@@ -28,7 +28,11 @@
 
     <!-- actor area -->
     <% if(actor){ %>
-    <img src="<%= posterURL + actor.profile_path %>" alt="<%= title %>" />
+    <img
+      src="<%= posterURL + actor.profile_path %>"
+      alt="<%= title %>"
+      onerror="this.src='/images/default_poster.png'"
+    />
     <h2><%= actor.name %></h2>
     <p><%= actor.biography %></p>
     <hr />
@@ -44,6 +48,7 @@
       <img
         src="<%= posterURL + movie.poster_path %>"
         alt="<%= movie.title %> Poster"
+        onerror="this.src='/images/default_poster.png'"
       />
     </a>
     <% })} %>

@@ -29,6 +29,7 @@
         class="movie-poster"
         src="<%= posterURL + data.poster_path %> "
         alt="Poster"
+        onerror="this.src='/images/default_poster.png'"
       />
     </a>
     <p class="movie-synopsis"><%= data.overview %></p>
