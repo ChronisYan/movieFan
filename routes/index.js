@@ -1,5 +1,6 @@
 var express = require("express");
 const axios = require("axios");
+const passport = require("passport");
 var router = express.Router();
 
 // API URLS
@@ -19,14 +20,25 @@ router.use((req, res, next) => {
 //LOADING MOVIE ERROR CHECKER
 router.use((req, res, next) => {
   res.locals.actor = null;
-  if (req.query.loadingError === "true") {
-    res.locals.movieError =
-      "Sorry, we were unable to load the movie. Please try again later";
+  if (req.query.unexpectedError) {
+    res.locals.unexpectedError = req.query.unexpectedError;
   } else {
-    res.locals.movieError = null;
+    res.locals.unexpectedError = null;
   }
   next();
 });
+
+// <--------- PASSPORT LOGIN ---------------->
+router.get("/login", passport.authenticate("github"));
+
+router.get(
+  "/auth",
+  passport.authenticate("github", { failureRedirect: "/login" }),
+  (req, res) => {
+    // Successful authentication, redirect home.
+    res.redirect("/");
+  }
+);
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -62,8 +74,24 @@ router.get("/movie/:id", (req, res, next) => {
       });
     })
     .catch((e) => {
-      res.redirect("/?loadingError=true");
+      res.redirect(
+        `/?unexpectedError=${encodeURIComponent(
+          "We were unable to load movies. Please check you connection and try again later"
+        )}`
+      );
     });
+});
+
+/* GET USER FAVORITE */
+router.get("/favorites", (req, res, next) => {
+  if (!req.user) {
+    return res.redirect(
+      `/?unexpectedError=${encodeURIComponent(
+        "You must login first to acess favorites"
+      )}`
+    );
+  }
+  res.send(req.user.displayName);
 });
 
 /* POST search  */
